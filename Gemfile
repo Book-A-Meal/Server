@@ -2,6 +2,7 @@ source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "2.7.4"
+gem 'jwt', '~> 2.7', '>= 2.7.1'
 gem 'active_model_serializers', '~> 0.10.13'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"

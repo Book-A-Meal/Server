@@ -11,6 +11,8 @@ class Admin < ApplicationRecord
     # Password Validation
     validates :name, {
         presence: true,
-        length: { in: 6..20 }
+        length: { in: 4..20 }
     }
+
+    
 end

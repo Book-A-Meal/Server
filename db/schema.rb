@@ -15,6 +15,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_20_192720) do
     t.string "name"
     t.string "email"
     t.string "password_digest"
+    t.boolean "IsAdmin", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -33,6 +34,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_20_192720) do
     t.string "name"
     t.string "email"
     t.string "password_digest"
+    t.boolean "IsAdmin", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

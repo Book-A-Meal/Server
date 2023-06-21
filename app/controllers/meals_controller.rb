@@ -5,9 +5,11 @@ class MealsController < ApplicationController
     end
 
     def show
-        meal = Meal.joins(:admin).find_by(id: params[:id])
+        meal = Meal.find_by(id: params[:id])
+        # meal = Meal.joins(:admin).find_by(id: params[:id])
+        meal_data = meal.as_json.except("created_at", "updated_at")
         if meal
-            app_response(data: {meal: meal, admin: meal.admin.as_json})
+            app_response(data: {meal: meal_data, admin: meal.admin.name.as_json})
         end
     end
 

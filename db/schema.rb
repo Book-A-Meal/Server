@@ -12,8 +12,8 @@
 
 ActiveRecord::Schema[7.0].define(version: 2023_06_20_192720) do
   create_table "admins", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
+    t.string "name", null: false
+    t.string "email", null: false
     t.string "password_digest"
     t.boolean "IsAdmin", default: true
     t.datetime "created_at", null: false
@@ -21,9 +21,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_20_192720) do
   end
 
   create_table "meals", force: :cascade do |t|
-    t.string "name"
-    t.string "description"
-    t.integer "price"
+    t.string "name", null: false
+    t.string "description", null: false
+    t.integer "price", null: false
     t.integer "admin_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -31,8 +31,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_20_192720) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
+    t.string "name", null: false
+    t.string "email", null: false
     t.string "password_digest"
     t.boolean "IsAdmin", default: false
     t.datetime "created_at", null: false

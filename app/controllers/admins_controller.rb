@@ -1,7 +1,12 @@
 class AdminsController < ApplicationController
 
+    def index
+        app_response(data: Admin.all)
+    end
+
     def show
-        user = Admin.joins(:meals).find_by(id: params[:id])
+        user = Admin.find_by(id: params[:id])
+        # user = Admin.joins(:meals).find_by(id: params[:id])
         if user
             app_response(data: {admin: user, meals: user.meals.as_json})
         end

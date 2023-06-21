@@ -1,9 +1,9 @@
 class AdminsController < ApplicationController
 
     def show
-        user = Admin.find_by(id: params[:id])
+        user = Admin.joins(:meals).find_by(id: params[:id])
         if user
-            app_response(data: user)
+            app_response(data: {admin: user, meals: user.meals.as_json})
         end
     end
 
@@ -17,7 +17,8 @@ class AdminsController < ApplicationController
             user = Admin.create(user_params)
             if user.valid?
                 save_user(user.id)
-                app_response(message: 'Registration was successful', status: :created, data: user)
+                user_data = user.as_json.except("created_at", "updated_at","password_digest")
+                app_response(message: 'Registration was successful', status: :created, data: user_data)
             else
                 app_response(message: 'Something went wrong during registration', status: :unprocessable_entity, data: user.errors)
             end

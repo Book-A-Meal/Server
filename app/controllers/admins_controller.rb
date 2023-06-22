@@ -6,7 +6,6 @@ class AdminsController < ApplicationController
 
     def show
         user = Admin.find_by(id: params[:id])
-        # user = Admin.joins(:meals).find_by(id: params[:id])
         if user
             app_response(data: {admin: user, meals: user.meals.as_json})
         end

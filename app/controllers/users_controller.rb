@@ -1,4 +1,17 @@
 class UsersController < ApplicationController
+    def index
+        app_response(data: User.all)
+    end
+
+    def show
+        user = User.find(params[:id])
+        if user
+            blob = ActiveStorage::Blob.find(params[:id])
+            image = url_for(blob)
+            app_response(data: {user: user, image: image})
+        end
+    end
+
     def create
 
         sql = "email = :email"
@@ -11,7 +24,9 @@ class UsersController < ApplicationController
             if user.valid?
                 save_user(user.id)
                 user_data = user.as_json.except("created_at", "updated_at","password_digest")
-                app_response(message: 'Registration was successful', status: :created, data: user_data)
+                blob = ActiveStorage::Blob.find(user.id)
+                image = url_for(blob)
+                app_response(message: 'Registration was successful', status: :ok, data: {data: user_data, image: image})
             else
                 app_response(message: 'Something went wrong during registration', status: :unprocessable_entity, data: user.errors)
             end
@@ -35,6 +50,6 @@ class UsersController < ApplicationController
 
     private
     def user_params
-        params.permit(:name, :email, :password, :password_confirmation)
+        params.permit(:name, :email, :password, :password_confirmation, :file)
     end
 end

@@ -7,5 +7,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   post "/admin/login", to: "admins#login"
+  delete '/admins/logout', to: 'admins#logout'
+
+  delete '/users/logout', to: 'users#logout'
   post "/user/login", to: "users#login"
 end

@@ -44,6 +44,11 @@ class AdminsController < ApplicationController
         end
     end
 
+    def logout
+        remove_user
+        app_response(message: 'Logout successful')
+    end
+
     private
     def user_params
         params.permit(:name, :email, :password, :password_confirmation, :file)

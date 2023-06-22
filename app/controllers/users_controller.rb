@@ -51,6 +51,11 @@ class UsersController < ApplicationController
         end
     end
 
+    def destroy
+        session[:user_id] = nil
+        app_response(message: 'Logout successful', status: :ok)
+    end
+
     private
     def user_params
         params.permit(:name, :email, :password, :password_confirmation, :file)

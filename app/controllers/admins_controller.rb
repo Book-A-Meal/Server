@@ -21,8 +21,9 @@ class AdminsController < ApplicationController
             user = Admin.create(user_params)
             if user.valid?
                 save_user(user.id)
+                token = encode(user.id, user.email)
                 user_data = user.as_json.except("created_at", "updated_at","password_digest")
-                app_response(message: 'Registration was successful', status: :created, data: user_data)
+                app_response(message: 'Registration was successful', status: :created, data: {data: user_data, token: token})
             else
                 app_response(message: 'Something went wrong during registration', status: :unprocessable_entity, data: user.errors)
             end

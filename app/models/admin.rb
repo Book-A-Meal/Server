@@ -1,5 +1,6 @@
 class Admin < ApplicationRecord
     has_secure_password
+    has_one_attached :file
     has_many :meals
 
     # Email Validation

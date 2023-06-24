@@ -6,8 +6,10 @@ class MealsController < ApplicationController
 
         meals.each do | food | 
             admin_info = food.admin
+            blob = ActiveStorage::Blob.find(admin_info.id)
+            image = url_for(blob)
             admin_data = admin_info.as_json.except("created_at", "updated_at", "password_digest")
-            meal_data = food.attributes.merge(admin_data: admin_data)
+            meal_data = food.attributes.merge(admin_data: admin_data, admin_mage: image)
 
             meal << meal_data
         end

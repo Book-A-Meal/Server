@@ -37,16 +37,18 @@ class AdminsController < ApplicationController
         if user&.authenticate(user_params[:password])
             save_user(user.id)
             token = encode(user.id, user.email)
+            blob = ActiveStorage::Blob.find(user.id)
+            image = url_for(blob)
             user_data = user.as_json.except("created_at", "updated_at","password_digest")
-            app_response(message: 'Login was successful', status: :ok, data: { data: user_data, token: token })
+            app_response(message: 'Login was successful', status: :ok, data: { data: user_data, token: token, image: image })
         else
             app_response(message: 'Invalid name/email or password', status: :unprocessable_entity)
         end
     end
 
-    def logout
-        remove_user
-        app_response(message: 'Logout successful')
+    def destroy
+        session[:user_id] = nil
+        app_response(message: 'Logout successful', status: :ok)
     end
 
     private

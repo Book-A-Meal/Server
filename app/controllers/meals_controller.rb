@@ -34,7 +34,7 @@ class MealsController < ApplicationController
         meal = Meal.create(meal_params)
         img = ActiveStorage::Blob.find(meal.id)
         meal_img = url_for(img)
-        app_response(message: 'Meal created successful', status: :created, data: meal, meal_img: meal_img)
+        app_response(message: 'Meal created successful', status: :created, data: {meal: meal, meal_img: meal_img})
     end
 
     private

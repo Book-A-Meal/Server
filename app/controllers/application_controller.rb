@@ -77,13 +77,6 @@ class ApplicationController < ActionController::API
         app_response(message: 'failed', data: { info: exception.message }, status: :unprocessable_entity)
     end
 
-    # get logged in user
-    def current_user
-        @current_user = User.find_by(id: @uid)
-    end
-
-
-
     private
 
     def authenticate_user!

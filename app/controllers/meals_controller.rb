@@ -1,7 +1,7 @@
 class MealsController < ApplicationController
 
     def index
-        meals = Meal.all
+        meals = Meal.all.reverse
         meal = []
 
         meals.each do | food | 
@@ -9,6 +9,7 @@ class MealsController < ApplicationController
             blob = ActiveStorage::Blob.find(admin_info.id)
             image = url_for(blob)
 
+            # getting image for each meal
             img = ActiveStorage::Blob.find(food.id)
             meal_img = url_for(img)
 

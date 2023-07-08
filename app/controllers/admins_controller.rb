@@ -7,7 +7,10 @@ class AdminsController < ApplicationController
     def show
         user = Admin.find_by(id: params[:id])
         if user
-            app_response(data: {admin: user, meals: user.meals.as_json})
+            user_data = user.as_json.except("created_at", "updated_at","password_digest")
+            blob = ActiveStorage::Blob.find(user.id)
+            image = url_for(blob)
+            app_response(data: {admin: user_data, image: image, meals: user.meals.as_json})
         end
     end
 

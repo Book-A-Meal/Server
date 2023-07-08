@@ -19,10 +19,10 @@ class UsersController < ApplicationController
         if user
             app_response(message: 'Something went wrong during registration', status: :unprocessable_entity)
         else
-
             user = User.create(user_params)
             if user.valid?
                 save_user(user.id)
+                UserMailer.with(user: user).welcome_email.deliver_now
                 token = encode(user.id, user.email)
                 user_data = user.as_json.except("created_at", "updated_at","password_digest")
                 blob = ActiveStorage::Blob.find(user.id)
@@ -41,6 +41,7 @@ class UsersController < ApplicationController
         user = User.where(sql, { name: user_params[:name], email: user_params[:email] }).first
         if user&.authenticate(user_params[:password])
             save_user(user.id)
+            UserMailer.with(user: user).welcome_email.deliver_now
             token = encode(user.id, user.email)
             blob = ActiveStorage::Blob.find(user.id)
             image = url_for(blob)

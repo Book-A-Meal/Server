@@ -5,7 +5,7 @@ ruby "2.7.4"
 gem 'aws-sdk-s3', '~> 1.126'
 gem 'jwt', '~> 2.7', '>= 2.7.1'
 gem 'active_model_serializers', '~> 0.10.13'
-
+gem "mailtrap"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.5"
 
